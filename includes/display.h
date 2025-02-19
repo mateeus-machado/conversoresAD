@@ -1,16 +1,11 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include "ssd1306.h"
+#include "pico/stdlib.h"
+#include "hardware/i2c.h"
+#include "includes/ssd1306.h"
 
-#define LARGURA_DISPLAY 128
-#define ALTURA_DISPLAY 64
-#define TAMANHO_QUADRADO 8
-#define PINO_I2C_SDA 14
-#define PINO_I2C_SCL 15
-
-void display_init();
-void display_atualizar(int x, int y);
-void display_desenhar_borda(uint8_t estilo);
+void inicializar_display();
+void atualizar_display(uint16_t adc_x, uint16_t adc_y, bool estado_borda);
 
 #endif

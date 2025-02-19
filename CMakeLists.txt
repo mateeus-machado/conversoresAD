@@ -28,43 +28,45 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(conversoresAD C CXX ASM)
+project(conversores-ad C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(conversoresAD 
-        conversoresAD.c 
-        src/controle_leds.c 
-        src/joystick.c 
-        src/ssd1306.c 
-        src/botoes.c 
-        src/display.c)
+add_executable(conversores-ad
+        conversores-ad.c
+        src/adc.c
+        src/display.c
+        src/entradas.c
+        src/leds.c
+        src/pwm.c
+        src/ssd1306.c)
 
-pico_set_program_name(conversoresAD "conversoresAD")
-pico_set_program_version(conversoresAD "0.1")
+pico_set_program_name(conversores-ad "conversores-ad")
+pico_set_program_version(conversores-ad "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(conversoresAD 1)
-pico_enable_stdio_usb(conversoresAD 1)
+pico_enable_stdio_uart(conversores-ad 1)
+pico_enable_stdio_usb(conversores-ad 1)
 
 # Add the standard library to the build
-target_link_libraries(conversoresAD
+target_link_libraries(conversores-ad
+        pico_stdlib
         hardware_adc
-        hardware_pwm
+        pico_stdlib
         hardware_i2c
-        pico_stdlib)
+        hardware_pwm)
 
 # Add the standard include files to the build
-target_include_directories(conversoresAD PRIVATE
+target_include_directories(conversores-ad PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(conversoresAD 
+target_link_libraries(conversores-ad 
         
         )
 
-pico_add_extra_outputs(conversoresAD)
+pico_add_extra_outputs(conversores-ad)
